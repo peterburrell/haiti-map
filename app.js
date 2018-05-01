@@ -54,55 +54,58 @@ const twins = [
     { church: 'Sts. Peter and Paul, Palmyra', twin: 'St. Joseph, Fonds Pierre', lat: 18.917, lng: -71.95 }
 ];
 
-const map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(19.03, -72.25),
-    zoom: 9,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-});
+function init() {
 
-
-const info = new google.maps.InfoWindow();
-const markers = [];
-const select = document.getElementById('twins');
-
-select.onchange = function() {
-    let num = select.options[select.selectedIndex].value;
-
-    if(num === 'none') {
-        info.close();
-        return;
-    }
-
-    google.maps.event.trigger(markers[num], 'click');
-};
-
-twins.forEach(function(twin, i) {
-    let marker = new google.maps.Marker({
-        position: { lat: twin.lat, lng: twin.lng },
-        label: { text: i+1 + '', color: 'white' }, 
-        title: twin.twin,
-        icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
-            fillOpacity: 0.8,
-            fillColor: '#1864ab',
-            strokeOpacity: 1,
-            strokeColor: '#1864ab'
-        },
-        map: map
+    const map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(19.03, -72.25),
+        zoom: 9,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    let html = '<strong>' + twin.twin + '</strong><br/>' + twin.church;
+    const info = new google.maps.InfoWindow();
+    const markers = [];
+    const select = document.getElementById('twins');
 
-    marker.addListener('click', function(e) {
-        info.setContent(html);
-        info.open(map, marker);
+    select.onchange = function() {
+        let num = select.options[select.selectedIndex].value;
+
+        if(num === 'none') {
+            info.close();
+            return;
+        }
+
+        google.maps.event.trigger(markers[num], 'click');
+    };
+
+    twins.forEach(function(twin, i) {
+        let marker = new google.maps.Marker({
+            position: { lat: twin.lat, lng: twin.lng },
+            label: { text: i+1 + '', color: 'white' }, 
+            title: twin.twin,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 10,
+                fillOpacity: 0.8,
+                fillColor: '#1864ab',
+                strokeOpacity: 1,
+                strokeColor: '#1864ab'
+            },
+            map: map
+        });
+
+        let html = '<strong>' + twin.twin + '</strong><br/>' + twin.church;
+
+        marker.addListener('click', function(e) {
+            info.setContent(html);
+            info.open(map, marker);
+        });
+
+        markers.push(marker);
+
+        let option = document.createElement('option');
+        option.value = i;
+        option.innerHTML = twin.church;
+        select.appendChild(option);
     });
 
-    markers.push(marker);
-
-    let option = document.createElement('option');
-    option.value = i;
-    option.innerHTML = twin.church;
-    select.appendChild(option);
-});
+}
