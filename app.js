@@ -1,3 +1,5 @@
+log('creating twins...');
+
 const twins = [
     { church: 'Basilica of St. Mary of the Immaculate Conception, Norfolk', twin: 'Bassin Zim Chapel, Papaye', lat: 19.164, lng: -71.986 },
     { church: 'Blessed Sacrament, Harrisonburg', twin: 'St. Isidore, Anse-&agrave;-Galets', lat: 18.8317, lng: -72.8642 },
