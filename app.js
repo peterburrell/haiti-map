@@ -1,5 +1,3 @@
-log('creating twins...');
-
 var twins = [
     { church: 'Basilica of St. Mary of the Immaculate Conception, Norfolk', twin: 'Bassin Zim Chapel, Papaye', lat: 19.164, lng: -71.986 },
     { church: 'Blessed Sacrament, Harrisonburg', twin: 'St. Isidore, Anse-&agrave;-Galets', lat: 18.8317, lng: -72.8642 },
@@ -56,10 +54,7 @@ var twins = [
     { church: 'Sts. Peter and Paul, Palmyra', twin: 'St. Joseph, Fonds Pierre', lat: 18.917, lng: -71.95 }
 ];
 
-log('twins: ' + twins.length);
-
 function init() {
-    log('creating map...');
 
     var map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(19.03, -72.25),
@@ -67,13 +62,9 @@ function init() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    log('map created');
-
     var info = new google.maps.InfoWindow();
     var markers = [];
     var select = document.getElementById('twins');
-
-    log('creating select event handler...');
 
     select.onchange = function() {
         var num = select.options[select.selectedIndex].value;
@@ -85,10 +76,6 @@ function init() {
 
         google.maps.event.trigger(markers[num], 'click');
     };
-
-    log('select event handler created');
-
-    log('creating markers...');
 
     twins.forEach(function(twin, i) {
         var marker = new google.maps.Marker({
@@ -120,10 +107,4 @@ function init() {
         option.innerHTML = twin.church;
         select.appendChild(option);
     });
-    log('markers created');
-}
-
-function log(msg) {
-    var node = document.getElementById('log-output');
-    node.textContent += msg + '\n';
 }
