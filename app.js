@@ -54,7 +54,10 @@ const twins = [
     { church: 'Sts. Peter and Paul, Palmyra', twin: 'St. Joseph, Fonds Pierre', lat: 18.917, lng: -71.95 }
 ];
 
+log('twins: ' + twins.length);
+
 function init() {
+    log('creating map...');
 
     const map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(19.03, -72.25),
@@ -62,9 +65,13 @@ function init() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+    log('map created');
+
     const info = new google.maps.InfoWindow();
     const markers = [];
     const select = document.getElementById('twins');
+
+    log('creating select event handler...');
 
     select.onchange = function() {
         let num = select.options[select.selectedIndex].value;
@@ -76,6 +83,10 @@ function init() {
 
         google.maps.event.trigger(markers[num], 'click');
     };
+
+    log('select event handler created');
+
+    log('creating markers...');
 
     twins.forEach(function(twin, i) {
         let marker = new google.maps.Marker({
@@ -107,5 +118,10 @@ function init() {
         option.innerHTML = twin.church;
         select.appendChild(option);
     });
+    log('markers created');
+}
 
+function log(msg) {
+    var node = document.getElementById('log-output');
+    node.textContent += msg + '\n';
 }
