@@ -1,6 +1,6 @@
 log('creating twins...');
 
-const twins = [
+var twins = [
     { church: 'Basilica of St. Mary of the Immaculate Conception, Norfolk', twin: 'Bassin Zim Chapel, Papaye', lat: 19.164, lng: -71.986 },
     { church: 'Blessed Sacrament, Harrisonburg', twin: 'St. Isidore, Anse-&agrave;-Galets', lat: 18.8317, lng: -72.8642 },
     { church: 'Cathedral of the Sacred Heart, Richmond', twin: 'St. Paul\'s Chapel of Sacred Heart, Carissade', lat: 19.133, lng: -72.083 },
@@ -61,7 +61,7 @@ log('twins: ' + twins.length);
 function init() {
     log('creating map...');
 
-    const map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(19.03, -72.25),
         zoom: 9,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -69,14 +69,14 @@ function init() {
 
     log('map created');
 
-    const info = new google.maps.InfoWindow();
-    const markers = [];
-    const select = document.getElementById('twins');
+    var info = new google.maps.InfoWindow();
+    var markers = [];
+    var select = document.getElementById('twins');
 
     log('creating select event handler...');
 
     select.onchange = function() {
-        let num = select.options[select.selectedIndex].value;
+        var num = select.options[select.selectedIndex].value;
 
         if(num === 'none') {
             info.close();
@@ -91,7 +91,7 @@ function init() {
     log('creating markers...');
 
     twins.forEach(function(twin, i) {
-        let marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             position: { lat: twin.lat, lng: twin.lng },
             label: { text: i+1 + '', color: 'white' }, 
             title: twin.twin,
@@ -106,7 +106,7 @@ function init() {
             map: map
         });
 
-        let html = '<strong>' + twin.twin + '</strong><br/>' + twin.church;
+        var html = '<strong>' + twin.twin + '</strong><br/>' + twin.church;
 
         marker.addListener('click', function(e) {
             info.setContent(html);
@@ -115,7 +115,7 @@ function init() {
 
         markers.push(marker);
 
-        let option = document.createElement('option');
+        var option = document.createElement('option');
         option.value = i;
         option.innerHTML = twin.church;
         select.appendChild(option);
